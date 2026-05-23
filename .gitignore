@@ -1,0 +1,47 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual Environment
+venv/
+env/
+.venv/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Data (too large for git — download separately)
+data/raw/
+data/processed/
+data/tokenizer/*.model
+data/tokenizer/*.vocab
+
+# Model checkpoints (too large for git)
+checkpoints/
+*.pt
+*.pth
+*.bin
+
+# Logs
+logs/
+runs/
+
+# Plots (regenerated from training history)
+plots/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Jupyter
+.ipynb_checkpoints/
+notebooks/.ipynb_checkpoints/

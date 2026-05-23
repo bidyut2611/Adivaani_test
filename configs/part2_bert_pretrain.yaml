@@ -1,0 +1,35 @@
+# Part II - BERT Pretraining Configuration
+# Masked Language Modeling on Hindi data
+
+data:
+  tokenizer_dir: "data/tokenizer"
+  tokenizer_prefix: "hi_mr_bpe"
+  processed_dir: "data/processed"
+  train_file: "train.hi"   # Pretrain BERT on Hindi source
+  val_file: "val.hi"
+  vocab_size: 32000
+  max_len: 256
+
+model:
+  hidden_dim: 768
+  num_layers: 12
+  num_heads: 12
+  num_kv_heads: 4
+  max_seq_len: 512
+  dropout: 0.1
+
+training:
+  num_epochs: 10
+  batch_size: 32
+  grad_accum_steps: 4    # Effective batch size = 128
+  learning_rate: 0.0001
+  weight_decay: 0.01
+  warmup_steps: 10000
+  mask_prob: 0.15
+  grad_clip: 1.0
+  use_amp: true
+  num_workers: 4
+
+paths:
+  checkpoint_dir: "checkpoints/bert_pretrain"
+  log_dir: "logs/bert_pretrain"

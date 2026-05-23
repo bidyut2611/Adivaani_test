@@ -1,0 +1,51 @@
+# Part I - Experiment 1: Seq2Seq with Random Embeddings
+# Hindi → Marathi Translation
+
+# Data
+data:
+  raw_dir: "data/raw"
+  processed_dir: "data/processed"
+  tokenizer_dir: "data/tokenizer"
+  tokenizer_prefix: "hi_mr_bpe"
+  vocab_size: 32000
+  max_len: 256          # Max token length for sequences
+  max_word_len: 150     # Max word length for filtering
+  min_word_len: 2       # Min word length for filtering
+  val_ratio: 0.05
+
+# Model
+model:
+  type: "seq2seq"
+  embed_dim: 768        # Match BERT dimension for fair comparison
+  hidden_dim: 512
+  attention_dim: 256
+  num_layers: 2
+  dropout: 0.3
+  embedding_type: "random"  # "random" or "bert"
+  freeze_embeddings: false
+
+# Training
+training:
+  num_epochs: 30
+  batch_size: 64
+  learning_rate: 3e-4
+  weight_decay: 1e-5
+  grad_clip: 1.0
+  label_smoothing: 0.1
+  teacher_forcing_start: 1.0
+  teacher_forcing_end: 0.3
+  use_amp: true
+  warmup_steps: 1000
+  eval_every_epochs: 1
+  eval_max_batches: 50
+  use_bucket_batching: true
+  num_workers: 0
+
+# Paths
+paths:
+  checkpoint_dir: "checkpoints/part1_random"
+  log_dir: "logs/part1_random"
+  plot_dir: "plots/part1_random"
+
+# Reproducibility
+seed: 42

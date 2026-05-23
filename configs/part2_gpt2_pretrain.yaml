@@ -1,0 +1,35 @@
+# Part II - GPT-2 Pretraining Configuration
+# Causal Language Modeling on Marathi data
+
+data:
+  tokenizer_dir: "data/tokenizer"
+  tokenizer_prefix: "hi_mr_bpe"
+  processed_dir: "data/processed"
+  train_file: "train.mr"   # Pretrain GPT-2 on Marathi target
+  val_file: "val.mr"
+  vocab_size: 32000
+  max_len: 256
+
+model:
+  hidden_dim: 768
+  num_layers: 12
+  num_heads: 12
+  num_kv_heads: 4
+  max_seq_len: 1024
+  dropout: 0.1
+  add_cross_attention: false # Set to true ONLY for translator fine-tuning
+
+training:
+  num_epochs: 10
+  batch_size: 32
+  grad_accum_steps: 4
+  learning_rate: 0.0003
+  weight_decay: 0.01
+  warmup_steps: 10000
+  grad_clip: 1.0
+  use_amp: true
+  num_workers: 4
+
+paths:
+  checkpoint_dir: "checkpoints/gpt2_pretrain"
+  log_dir: "logs/gpt2_pretrain"

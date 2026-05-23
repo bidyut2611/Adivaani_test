@@ -1,0 +1,43 @@
+# Part II - BERT-GPT2 Translation System Configuration
+# Fine-tuning on parallel Hindi-Marathi data
+
+data:
+  tokenizer_dir: "data/tokenizer"
+  tokenizer_prefix: "hi_mr_bpe"
+  processed_dir: "data/processed"
+  vocab_size: 32000
+  max_len: 256
+  val_ratio: 0.05
+
+model:
+  type: "translator"
+  hidden_dim: 768
+  num_layers: 12
+  num_heads: 12
+  num_kv_heads: 4
+  max_seq_len: 512  # For BERT
+  gpt_max_seq_len: 1024  # For GPT-2
+  dropout: 0.1
+
+training:
+  num_epochs: 15
+  batch_size: 32
+  grad_accum_steps: 4
+  learning_rate: 5e-5
+  weight_decay: 0.01
+  warmup_steps: 2000
+  grad_clip: 1.0
+  use_amp: true
+  label_smoothing: 0.1
+  eval_every_epochs: 1
+  eval_max_batches: 50
+  use_bucket_batching: true
+  num_workers: 4
+
+paths:
+  # Path to pretrained checkpoints
+  bert_checkpoint: "checkpoints/bert_pretrain/best_bert.pt"
+  gpt2_checkpoint: "checkpoints/gpt2_pretrain/best_gpt2.pt"
+  
+  checkpoint_dir: "checkpoints/part2_translator"
+  log_dir: "logs/part2_translator"

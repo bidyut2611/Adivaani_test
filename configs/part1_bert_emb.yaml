@@ -1,0 +1,54 @@
+# Part I - Experiment 2: Seq2Seq with BERT Embeddings
+# Hindi → Marathi Translation
+
+# Data
+data:
+  raw_dir: "data/raw"
+  processed_dir: "data/processed"
+  tokenizer_dir: "data/tokenizer"
+  tokenizer_prefix: "hi_mr_bpe"
+  vocab_size: 32000
+  max_len: 256
+  max_word_len: 150
+  min_word_len: 2
+  val_ratio: 0.05
+
+# Model
+model:
+  type: "seq2seq"
+  embed_dim: 768        # Must match BERT hidden size
+  hidden_dim: 512
+  attention_dim: 256
+  num_layers: 2
+  dropout: 0.3
+  embedding_type: "bert"
+  freeze_embeddings: false  # Fine-tune BERT embeddings
+  # BERT models for embedding extraction
+  hindi_bert: "l3cube-pune/hindi-bert-v2"
+  marathi_bert: "l3cube-pune/marathi-bert-v2"
+
+# Training
+training:
+  num_epochs: 30
+  batch_size: 64
+  learning_rate: 3e-4
+  weight_decay: 1e-5
+  grad_clip: 1.0
+  label_smoothing: 0.1
+  teacher_forcing_start: 1.0
+  teacher_forcing_end: 0.3
+  use_amp: true
+  warmup_steps: 1000
+  eval_every_epochs: 1
+  eval_max_batches: 50
+  use_bucket_batching: true
+  num_workers: 0
+
+# Paths
+paths:
+  checkpoint_dir: "checkpoints/part1_bert"
+  log_dir: "logs/part1_bert"
+  plot_dir: "plots/part1_bert"
+
+# Reproducibility
+seed: 42
