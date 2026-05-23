@@ -26,17 +26,17 @@ data/tokenizer/*.model
 data/tokenizer/*.vocab
 
 # Model checkpoints (too large for git)
-checkpoints/
+# checkpoints/  <- Allowing the folder so we can push training_history.json
 *.pt
 *.pth
 *.bin
 
 # Logs
-logs/
-runs/
+# logs/         <- Allowing logs so they can be pushed
+# runs/
 
 # Plots (regenerated from training history)
-plots/
+# plots/        <- Allowing plots so they can be pushed
 
 # OS
 .DS_Store
